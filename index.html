@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang = "ko">
+    <head></head>
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "initial-scale = 1, minimum-scale = 1">
+    
+    <link rel = "icon" href = "imgs/page_icon.jfif">
+    <title>ABER's Sticker</title>
+    
+    
+    <style>
+    .background
+    {
+    background : #6082cf;
+    }
+    
+    .selector_text
+    {
+    position : fixed;
+    cursor : pointer;
+    color : white;
+    transform: translateX(var(--file_uploader_text_pos));
+    margin-left : 100%;
+    font-weight : bold;
+    white-space: nowrap;
+    font-size : var(--text_size);
+    transition : color 0.2s;
+    top : 16px;
+    opacity : 0.7;
+    }
+    
+    .file_selector
+    {
+    cursor : pointer;
+    position : fixed;
+    top : 14px;
+    transform: translateX(var(--file_uploader_pos));
+    margin-left : 100%;
+    text-align : left;
+    background : #ee406b;
+    opacity : 0;
+    display : block;
+    }
+    </style>
+    
+    
+    
+    <body class = "background">
+    
+    
+    <!-- image select button text -->
+    <div id = "selector_text" class = "selector_text">
+    Add images
+    </div>
+    
+    
+    <!-- image upload system -->
+    <!-- <form action="/action_page.php"> -->
+    <input id = "file_selector" class = "file_selector" onclick = "check_file()" type = "file" name = "filename" accept = "image/*">
+    <!-- </form> -->
+    
+    
+    
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <script>
+    c_w = window.innerWidth/1920;
+    window.onload = function()
+    {
+    c_w = window.innerWidth/1920;
+    }
+    //image_values
+    var imgs_obj = [];
+    var imgs_clicked = [];
+    var imgs_num = -1;
+    
+ 
+    
+    //set values for css
+    var resizing1 = 14*c_w;
+    document.documentElement.style.setProperty("--text_size",resizing1+"px")
+    
+    var resizing2 = -210*c_w;
+    var resizing3 = -130*c_w;
+    document.documentElement.style.setProperty("--file_uploader_pos",resizing2+"px")
+    document.documentElement.style.setProperty("--file_uploader_text_pos",resizing3+"px")
+    
+    //image selector text animation
+    document.querySelector(".file_selector").addEventListener("mouseover",function()
+    {
+    document.querySelector(".selector_text").style.color = "#ee406b";
+    })
+    
+    document.querySelector(".file_selector").addEventListener("mouseleave",function()
+    {
+    document.querySelector(".selector_text").style.color = "white";
+    })
+    
+    document.querySelector(".file_selector").addEventListener("click",function()
+    {
+    document.querySelector(".selector_text").style.color = "white";
+    })
+    
+    //check file selected and upload automatically
+    function check_file()
+    {
+    // Change the node's value by removing the fake path
+    var file_value = document.getElementById("file_selector").value;
+        if (file_value != "")
+        {
+        clearTimeout(check_file_timer);
+        document.getElementById("file_selector").value = "";
+        }
+        else
+        {
+        var check_file_timer = setTimeout(check_file,300);
+        }
+    }
+    
+    //add image sticker
+    $("input").change(function(e) 
+    {
+        for(var i = 0; i < e.originalEvent.srcElement.files.length; i++) 
+        {
+        var file = e.originalEvent.srcElement.files[i];
+        imgs_num ++;
+        imgs_obj[imgs_num] = document.createElement("img");
+        imgs_obj[imgs_num].style.cursor = "pointer";
+        imgs_obj[imgs_num].style.width = "340px";
+        imgs_obj[imgs_num].draggable = false;
+        
+        var reader = new FileReader();
+            reader.onloadend = function() 
+            {
+            imgs_obj[imgs_num].src = reader.result;
+            }
+        reader.readAsDataURL(file);
+        $("input").after(imgs_obj[imgs_num]);
+        }
+    }
+    );
+    
+    
+    
+    //interact with stickers
+    addEventListener("click",function()
+    {
+        for(var k = 0; k <= imgs_num; k++)
+        {
+            imgs_obj[k].onclick = function(k)
+            {
+            imgs_clicked[k] = 1;
+            console.log("clicked")
+            }
+        }
+    })
+    
+    setTimeout(interection_sticker,300);
+    function interection_sticker()
+    {
+        for(var ii = 0; ii <= imgs_num; ii++)
+        {
+        console.log(imgs_clicked[ii])
+            if (imgs_clicked[ii] == 1)
+            {
+            var mouse_x = event.clientX;
+            var mouse_y = event.clientY;
+            imgs_obj[ii].style.width = mouse_x+"px";
+            console.log(mouse_x+"px")
+            }
+        }
+    setTimeout(interection_sticker,300);
+    }
+    </script>
+
+    </body>
+</html>
