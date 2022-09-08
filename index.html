@@ -4,7 +4,7 @@
     <meta charset = "utf-8">
     <meta name = "viewport" content = "initial-scale = 1, minimum-scale = 1">
     
-    <link rel = "icon" href = "imgs/page_icon.jfif">
+    <link rel = "icon" href = "imgs/chisato1.png">
     <title>ABER's Sticker</title>
     
     
@@ -14,6 +14,23 @@
     background : #6082cf;
     overflow-x: hidden;
     overflow-y: hidden;
+    }
+    
+    .remover
+    {
+    position : fixed;
+    cursor : pointer;
+    color : white;
+    transform: translateX(var(--file_uploader_text_pos));
+    margin-left : 100%;
+    font-weight : bold;
+    white-space: nowrap;
+    font-size : var(--text_size);
+    transition : color 0.2s;
+    top : 94.5%;
+    left : 48px;
+    opacity : 0.7;
+    z-index : 9999;
     }
     
     .random_sticker
@@ -30,6 +47,7 @@
     top : 97%;
     left : -26px;
     opacity : 0.7;
+    z-index : 9999;
     }
     
     .selector_text
@@ -46,6 +64,7 @@
     top : 15px;
     left : 30px;
     opacity : 0.7;
+    z-index : 9999;
     }
     
     .bg_selector_text
@@ -62,6 +81,7 @@
     top : 38px;
     left : -27px;
     opacity : 0.7;
+    z-index : 9999;
     }
     
     .file_selector
@@ -73,7 +93,7 @@
     transform: translateX(var(--file_uploader_pos));
     margin-left : 100%;
     text-align : left;
-    background : #ee406b;
+    background : #ff0040;
     opacity : 0;
     display : block;
     }
@@ -98,15 +118,22 @@
     <body class = "background">
     
     
-    <!-- image select button text -->
+    <!-- image selector button text -->
     <div id = "selector_text" class = "selector_text">
     Add sticker
     </div>
     
+    <!-- random sticker button text -->
     <div id = "random_sticker" class = "random_sticker">
     Add random sticker
     </div>
     
+    <!-- remover button text -->
+    <div id = "remover" class = "remover">
+    Remover
+    </div>
+    
+    <!-- bg selector button text -->
     <div id = "bg_selector_text" class = "bg_selector_text">
     Custom background
     </div>
@@ -121,264 +148,8 @@
     
     
     
-    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-    <script>
-    c_w = window.innerWidth/1920;
-    window.onload = function()
-    {
-    c_w = window.innerWidth/1920;
-    }
-    //image_values
-    var imgs_obj = [];
-    var imgs_clicked = [];
-    var imgs_num = -1;
-    var direction = 0;
-    var n_dir = 1;
-    var t_dir = 0;
-    var can_place = false;
-    var random_sticker = ["chinanako","sakana","chisato1","chisato2","deto","takina1"];//["ame","aqua","calli","chinanako","sakana","chisato1","chisato2","deto","takina1"];
-    
- 
-    
-    //set values for css
-    var resizing1 = 14*c_w;
-    document.documentElement.style.setProperty("--text_size",resizing1+"px")
-    
-    var resizing2 = -210*c_w;
-    var resizing3 = -130*c_w;
-    document.documentElement.style.setProperty("--file_uploader_pos",resizing2+"px")
-    document.documentElement.style.setProperty("--file_uploader_text_pos",resizing3+"px")
-    
-    //sticker image selector text animation
-    document.querySelector(".file_selector").addEventListener("mouseover",function()
-    {
-    document.querySelector(".selector_text").style.color = "#ee406b";
-    })
-    
-    document.querySelector(".file_selector").addEventListener("mouseleave",function()
-    {
-    document.querySelector(".selector_text").style.color = "white";
-    })
-    
-    document.querySelector(".file_selector").addEventListener("click",function()
-    {
-    document.querySelector(".selector_text").style.color = "white";
-    })
-    
-    //custom bg selector text animation
-    document.querySelector(".bg_file_selector").addEventListener("mouseover",function()
-    {
-    document.querySelector(".bg_selector_text").style.color = "#ee406b";
-    })
-    
-    document.querySelector(".bg_file_selector").addEventListener("mouseleave",function()
-    {
-    document.querySelector(".bg_selector_text").style.color = "white";
-    })
-    
-    document.querySelector(".bg_file_selector").addEventListener("click",function()
-    {
-    document.querySelector(".bg_selector_text").style.color = "white";
-    })
-    
-    //random sticker text animation
-    document.querySelector(".random_sticker").addEventListener("mouseover",function()
-    {
-    document.querySelector(".random_sticker").style.color = "#ee406b";
-    })
-    
-    document.querySelector(".random_sticker").addEventListener("mouseleave",function()
-    {
-    document.querySelector(".random_sticker").style.color = "white";
-    })
-    
-    //check file selected and upload automatically
-    function check_file()
-    {
-    var file_value = document.getElementById("file_selector").value;
-        if (file_value != "")
-        {
-        clearTimeout(check_file_timer);
-        document.getElementById("file_selector").value = "";
-        }
-        else
-        {
-        var check_file_timer = setTimeout(check_file,300);
-        }
-    }
-    
-    //check bg file selected and upload automatically
-    function check_bg_file()
-    {
-    var bg_file_value = document.getElementById("bg_file_selector").value;
-        if (bg_file_value != "")
-        {
-        clearTimeout(check_bg_file_timer);
-        document.getElementById("bg_file_selector").value = "";
-        }
-        else
-        {
-        var check_bg_file_timer = setTimeout(check_bg_file,300);
-        }
-    }
-    
-    //add image sticker
-    $("input").change(function(e) 
-    {
-        for(var i = 0; i < e.originalEvent.srcElement.files.length; i++) 
-        {
-        var file = e.originalEvent.srcElement.files[i];
-        }
-    imgs_num ++;
-    imgs_obj[imgs_num] = document.createElement("img");
-    imgs_obj[imgs_num].style.cursor = "pointer";
-    imgs_obj[imgs_num].style.width = "340px";
-    imgs_obj[imgs_num].style.position = "absolute";
-    imgs_obj[imgs_num].style.display = "block";
-    imgs_obj[imgs_num].style.opacity = "0.4";
-    imgs_obj[imgs_num].style.transition = "transform 0.1s";
-    imgs_obj[imgs_num].style.zIndex = imgs_num;
-    imgs_obj[imgs_num].draggable = false;
-    get_mouse_dir(imgs_num);
-    setTimeout(placalble_now,500);
-    //var check_click2 = setTimeout(interacting_now,300)
-    imgs_clicked[imgs_num] = 1;
-    
-    var reader = new FileReader();
-        reader.onloadend = function() 
-        {
-        imgs_obj[imgs_num].src = reader.result;
-        }
-    reader.readAsDataURL(file);
-    $("input").after(imgs_obj[imgs_num]);
-    });
-    
-    
-    function get_mouse_dir(ii)
-    {
-        if (t_dir > 90 || t_dir < -90)
-        {
-        n_dir *= -1;
-        }
-    
-    t_dir += n_dir;
-    direction += (t_dir - direction)*0.1
-    imgs_obj[ii].style.transform = "rotate("+direction+"deg)";
-    var auto_dir = setTimeout(get_mouse_dir,10,ii);
-    
-        addEventListener("click",function()
-        {
-        direction = 0;
-        clearTimeout(auto_dir);
-        })
-    }
-    
-    //interact with stickers
-    addEventListener("mousemove",function()
-    {
-    mouse_x = event.clientX;
-    mouse_y = event.clientY;
-        for(var ii = 0; ii <= imgs_num; ii++)
-        {
-            if (imgs_clicked[ii] == 1)
-            {
-            imgs_obj[ii].style.left = mouse_x-150+"px";
-            imgs_obj[ii].style.top = mouse_y-150+"px";
-            }
-        }
-    })
-    
-    addEventListener("click",function()
-    {
-        if (can_place == true)
-        {
-            for(var ii = 0; ii <= imgs_num; ii++)
-            {
-                if (imgs_clicked[ii] == 1)
-                {
-                imgs_obj[ii].style.opacity = 0;
-                imgs_clicked[ii] = 0;
-                var random_value = Math.floor(Math.random()*3 | 1);
-                var audio = new Audio("sfx/sticker sfx_"+random_value+".mp3");
-                audio.pitchShift = false;
-                audio.volume = 0.2;
-                audio.play();
-                setTimeout(sticking_anime_1,300,ii);
-                }
-                else
-                {
-                imgs_obj[ii].addEventListener("click",play_sfx);
-                imgs_obj[ii].param1 = ii;
-                }
-            console.log("clicked"+random_value);
-            }
-        }
-    })
-    
-    function sticking_anime_1(ii)
-    {
-    imgs_obj[ii].style.transition = "opacity 1s";
-    imgs_obj[ii].style.opacity = 1;
-    
-    //setTimeout(sticking_anime_2,500,ii);
-    }
-    
-    function placalble_now()
-    {
-    can_place = true;
-    }
-    
-    //play sfx easter egg
-    function play_sfx(evt)
-    {
-    var ii = evt.currentTarget.param1;
-    console.log("angle"+direction);
-    var target_src = imgs_obj[ii].src;
-    
-        //check image file name and play sfx
-        if (target_src.includes("sakana"))
-        {
-        var audio = new Audio("sfx/sakana.mp3");
-        audio.pitchShift = false;
-        audio.volume = 0.2;
-        audio.play();
-        }
-        
-        if (target_src.includes("chinanako"))
-        {
-        var audio = new Audio("sfx/chinanako.mp3");
-        audio.pitchShift = false;
-        audio.volume = 0.2;
-        audio.play();
-        }
-    }
-    
-    
-    document.querySelector(".random_sticker").addEventListener("click",function()
-    {
-    document.querySelector(".random_sticker").style.color = "white";
-    
-    var random_value = Math.floor(Math.random()*random_sticker.length | 0);
-    imgs_num ++;
-    imgs_obj[imgs_num] = document.createElement("img");
-    imgs_obj[imgs_num].style.cursor = "pointer";
-    imgs_obj[imgs_num].style.width = "340px";
-    imgs_obj[imgs_num].style.position = "absolute";
-    imgs_obj[imgs_num].style.display = "block";
-    imgs_obj[imgs_num].style.opacity = "0.4";
-    imgs_obj[imgs_num].style.transition = "transform 0.1s";
-    imgs_obj[imgs_num].style.zIndex = imgs_num;
-    imgs_obj[imgs_num].style.left = "-999px";
-    imgs_obj[imgs_num].draggable = false;
-    setTimeout(get_mouse_dir,100,imgs_num);
-    can_place = false;
-    setTimeout(placalble_now,500);
-    imgs_clicked[imgs_num] = 1;
-    imgs_obj[imgs_num].src = "imgs/"+random_sticker[random_value]+".png";
-    $("input").after(imgs_obj[imgs_num]);
-    })
-    </script>
-
+    <script class = "jsbin" src = "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class = "jsbin" src = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <script src = "scripts.js"></script>
     </body>
 </html>
