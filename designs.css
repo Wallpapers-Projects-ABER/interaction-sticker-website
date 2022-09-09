@@ -1,77 +1,94 @@
 
+
+@font-face
+{ 
+font-family : customfont;
+src: url(etc/BM_hanna.ttf);
+}
+
+div
+{
+font-family: customfont;
+}
+
 .background
 {
-background : #6082cf;
+background : linear-gradient(to top,#27c3ff,#053bc4);
 overflow-x: hidden;
 overflow-y: hidden;
+height : var(--page_height);
 }
 
 .remover
 {
 position : fixed;
 cursor : pointer;
-color : white;
+color : black;
 transform: translateX(var(--file_uploader_text_pos));
 margin-left : 100%;
 font-weight : bold;
 white-space: nowrap;
 font-size : var(--text_size);
-transition : color 0.2s;
+transition : color 2s;
 top : 94.5%;
 left : 48px;
-opacity : 0.7;
 z-index : 9999;
+padding: 1.5px;
+width : 0px;
 }
 
 .random_sticker
 {
 position : fixed;
 cursor : pointer;
-color : white;
+color : black;
 transform: translateX(var(--file_uploader_text_pos));
 margin-left : 100%;
 font-weight : bold;
 white-space: nowrap;
 font-size : var(--text_size);
-transition : color 0.2s;
+transition : color 2s;
 top : 97%;
-left : -26px;
-opacity : 0.7;
+left : -18px;
 z-index : 9999;
+padding: 1.5px;
+width : 0px;
 }
 
 .selector_text
 {
 position : fixed;
 cursor : pointer;
-color : white;
+color : black;
 transform: translateX(var(--file_uploader_text_pos));
 margin-left : 100%;
 font-weight : bold;
 white-space: nowrap;
 font-size : var(--text_size);
-transition : color 0.2s;
+transition : color 2s;
 top : 15px;
 left : 30px;
-opacity : 0.7;
 z-index : 9999;
+padding: 1.5px;
+width : 0px;
 }
 
 .bg_selector_text
 {
 position : fixed;
 cursor : pointer;
-color : white;
+color : black;
 transform: translateX(var(--file_uploader_text_pos));
 margin-left : 100%;
 font-weight : bold;
 white-space: nowrap;
 font-size : var(--text_size);
-transition : color 0.2s;
+transition : color 2s;
 top : 38px;
-left : -27px;
-opacity : 0.7;
+left : -20px;
 z-index : 9999;
+padding: 1.5px;
+width : 0px;
 }
 
 .file_selector
@@ -83,9 +100,10 @@ left : 32px;
 transform: translateX(var(--file_uploader_pos));
 margin-left : 100%;
 text-align : left;
-background : #ff0040;
+background : #ff004c;
 opacity : 0;
 display : block;
+z-index : 10000;
 }
 
 .bg_file_selector
@@ -97,7 +115,8 @@ left : -32px;
 transform: translateX(var(--file_uploader_pos));
 margin-left : 100%;
 text-align : left;
-background : #ee406b;
+background : #ff5647;
 opacity : 0;
 display : block;
+z-index : 10000;
 }
