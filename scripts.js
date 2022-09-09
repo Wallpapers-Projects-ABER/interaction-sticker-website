@@ -209,8 +209,9 @@ reader.readAsDataURL(file);
     if (uploaded_file_target == 0)
     {
     $("input").after(imgs_obj[imgs_num]);
-    })
-}
+    }
+})
+
 
 
 
