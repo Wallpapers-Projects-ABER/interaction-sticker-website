@@ -1,15 +1,17 @@
- c_w = window.innerWidth/1920;
+var view_width = window.innerWidth;
+c_w = view_width/1920;
 window.onload = function()
 {
-c_w = window.innerWidth/1920;
+c_w = view_width/1920;
 }
 
 $(window).resize(function()
 {
-c_w = window.innerWidth/1920;
+c_w = view_width/1920;
 })
 //image_values
 var imgs_obj = [], imgs_clicked = [], imgs_num = -1, direction = 0, n_dir = 1, t_dir = 0, can_place = false, remover_activated = -1, uploaded_file_target = 0;
+var background_img = -4;
 var random_sticker = ["chinanako","sakana","chisato1","chisato2","deto","takina1"];//["ame","aqua","calli","chinanako","sakana","chisato1","chisato2","deto","takina1"];
 
 
@@ -147,6 +149,7 @@ var file_value = document.getElementById("file_selector").value;
     {
     uploaded_file_target = 0;
     clearTimeout(check_file_timer);
+    document.getElementById("file_selector").value = "";
     }
     else
     {
@@ -161,6 +164,7 @@ var bg_file_value = document.getElementById("bg_file_selector").value;
     if (bg_file_value != "")
     {
     clearTimeout(check_bg_file_timer);
+    uploaded_file_target = 1;
     document.getElementById("bg_file_selector").value = "";
     }
     else
@@ -172,6 +176,7 @@ var bg_file_value = document.getElementById("bg_file_selector").value;
 //add image sticker
 $("input").change(function(e)
 {
+console.log("input"+uploaded_file_target);
     for(var i = 0; i < e.originalEvent.srcElement.files.length; i++) 
     {
     var file = e.originalEvent.srcElement.files[i];
@@ -195,6 +200,21 @@ $("input").change(function(e)
     //var check_click2 = setTimeout(interacting_now,300)
     imgs_clicked[imgs_num] = 1;
     }
+    else
+    {
+        if (target_src.includes(".mp4") || target_src.includes(".avi"))
+        {
+        background_img = document.createElement("video");
+        }
+        else
+        {
+        background_img = document.createElement("img");
+        }
+    background_img.width = view_width;
+    background_img.zIndex = 1;
+    background_img.style.position = "absolute";
+    background_img.autoplay = true;
+    }
 
 var reader = new FileReader();
     reader.onloadend = function() 
@@ -203,12 +223,20 @@ var reader = new FileReader();
         {
         imgs_obj[imgs_num].src = reader.result;
         }
+        else
+        {
+        background_img.source.scr = reader.result;
+        }
     }
 reader.readAsDataURL(file);
 
     if (uploaded_file_target == 0)
     {
     $("input").after(imgs_obj[imgs_num]);
+    }
+    else
+    {
+    $("input").after(background_img);
     }
 })
 

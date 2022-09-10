@@ -1,4 +1,4 @@
-
++
 
 @font-face
 { 
@@ -17,6 +17,7 @@ background : linear-gradient(to top,#27c3ff,#053bc4);
 overflow-x: hidden;
 overflow-y: hidden;
 height : var(--page_height);
+z-index : 0;
 }
 
 .remover
