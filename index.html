@@ -13,14 +13,22 @@
     
     
     <body class = "background">
+    
+    <!-- <div id = "custom_background"></div> -->
+    
     <!-- image selector button text -->
     <div id = "selector_text" class = "selector_text">
-    Add sticker
+    Add custom sticker
     </div>
     
     <!-- random sticker button text -->
     <div id = "random_sticker" class = "random_sticker">
-    Add random sticker
+    Random sticker
+    </div>
+    
+    <!-- random background button text -->
+    <div id = "random_background" class = "random_background">
+    Random background
     </div>
     
     <!-- remover button text -->
@@ -36,10 +44,10 @@
     
     <!-- image upload system -->
     <!-- for sticker -->
-    <input id = "file_selector" class = "file_selector" onclick = "check_file()" type = "file" name = "filename" accept = "image/*">
+    <input id = "file_selector" class = "file_selector" onclick = check_file() type = "file" name = "filename" accept = "image/*">
     
     <!-- for bg -->
-    <input id = "bg_file_selector" class = "bg_file_selector" onclick = "check_bg_file()" type = "file" name = "filename" accept = "image/*, video/*">
+    <input id = "bg_file_selector" class = "bg_file_selector" onclick = check_bg_file() type = "file" name = "filename" accept = "image/*, video/*">
     
     
     

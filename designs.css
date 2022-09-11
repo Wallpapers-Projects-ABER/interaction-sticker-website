@@ -13,7 +13,7 @@ font-family: customfont;
 
 .background
 {
-background : linear-gradient(to top,#27c3ff,#053bc4);
+background : linear-gradient(to top,#3f80b6,#2a96f9);
 overflow-x: hidden;
 overflow-y: hidden;
 height : var(--page_height);
@@ -31,7 +31,7 @@ font-weight : bold;
 white-space: nowrap;
 font-size : var(--text_size);
 transition : color 2s;
-top : 94.5%;
+top : 92.5%;
 left : 48px;
 z-index : 9999;
 padding: 1.5px;
@@ -50,7 +50,25 @@ white-space: nowrap;
 font-size : var(--text_size);
 transition : color 2s;
 top : 97%;
-left : -18px;
+left : 4px;
+z-index : 9999;
+padding: 1.5px;
+width : 0px;
+}
+
+.random_background
+{
+position : fixed;
+cursor : pointer;
+color : black;
+transform: translateX(var(--file_uploader_text_pos));
+margin-left : 100%;
+font-weight : bold;
+white-space: nowrap;
+font-size : var(--text_size);
+transition : color 2s;
+top : 94.8%;
+left : -32px;
 z-index : 9999;
 padding: 1.5px;
 width : 0px;
@@ -68,7 +86,7 @@ white-space: nowrap;
 font-size : var(--text_size);
 transition : color 2s;
 top : 15px;
-left : 30px;
+left : -15px;
 z-index : 9999;
 padding: 1.5px;
 width : 0px;
