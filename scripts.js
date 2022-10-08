@@ -9,8 +9,24 @@ $(window).resize(function()
 {
 c_w = view_width/1920;
 })
+
+//return -1 or 1
+function irandom_return()
+{
+var random_value______ = Math.floor(Math.random()*100 | 1);
+
+    if (random_value______ <= 50)
+    {
+    return 1;
+    }
+    else
+    {
+    return -1;
+    }
+}
+
 //image_values
-var imgs_obj = [], imgs_clicked = [], imgs_num = -1, direction = 0, n_dir = 1, t_dir = 0, can_place = false, remover_activated = -1, already_exists_background = false;
+var imgs_obj = [], imgs_clicked = [], imgs_angle = [], imgs_max_angle = [], imgs_num = -1, direction = 0, n_dir = 1, t_dir = 0, can_place = false, remover_activated = -1, already_exists_background = false, mouse_x = 0, mouse_y = 0, n_draging_ele = -4;
 var background_img = -4, random_bg_n = -4;
 var random_sticker = ["chinanako","sakana","chisato1","chisato2","deto","takina1"];//["ame","aqua","calli","chinanako","sakana","chisato1","chisato2","deto","takina1"];
 var random_sticker_2 = ["elaina1","elaina2","elaina3","elaina4"];
@@ -143,6 +159,57 @@ document.querySelector(".random_sticker").style.width = "0px";
 
 
 
+//step event
+setTimeout(step_event,5);
+function step_event() //10 fps
+{
+var air_resistence = 0.67;
+    for(var k = 0; k <= imgs_num; k++)
+    {
+        if (imgs_obj[k] != -4)
+        {
+            if (imgs_max_angle[k] > 0)
+            {
+                if (imgs_angle[k] >= imgs_max_angle[k]*0.9)
+                {
+                imgs_max_angle[k] *= -air_resistence;
+                }
+                else
+                {
+                imgs_angle[k] += (1+abs(imgs_max_angle[k] - imgs_angle[k]))*0.07;
+                }
+            }
+            
+            if (imgs_max_angle[k] < 0)
+            {
+                if (imgs_angle[k] <= imgs_max_angle[k]*0.9)
+                {
+                imgs_max_angle[k] *= -air_resistence;
+                }
+                else
+                {
+                imgs_angle[k] -= (1+abs(imgs_max_angle[k] - imgs_angle[k]))*0.07;
+                }
+            }
+            
+            if (abs(imgs_max_angle[k]) < 0.5)
+            {
+            imgs_angle[k] = 0;
+            imgs_max_angle[k] = 0;
+            }
+            
+        imgs_obj[k].style.transform = "rotate("+imgs_angle[k]+"deg)";
+        console.log("rotate"+imgs_angle[k]+" / "+imgs_max_angle[k]);
+        }
+    }
+    
+setTimeout(step_event,5);
+}
+
+
+
+
+
 
 
 
@@ -262,7 +329,7 @@ console.log("file"+reader.result);
     imgs_obj[imgs_num].style.transition = "transform 0.1s";
     imgs_obj[imgs_num].style.zIndex = imgs_num+10;
     imgs_obj[imgs_num].draggable = false;
-    get_mouse_dir(imgs_num);
+    imgs_obj[imgs_num].style.transformOrigin = "top";
     setTimeout(placalble_now,100);
     //var check_click2 = setTimeout(interacting_now,300)
     imgs_clicked[imgs_num] = 1;
@@ -304,37 +371,20 @@ already_exists_background = true;
 
 
 
-
-function get_mouse_dir(ii)
-{
-    if (t_dir > 90 || t_dir < -90)
-    {
-    n_dir *= -1;
-    }
-
-t_dir += n_dir;
-direction += (t_dir - direction)*0.1
-imgs_obj[ii].style.transform = "rotate("+direction+"deg)";
-var auto_dir = setTimeout(get_mouse_dir,10,ii);
-
-    addEventListener("click",function()
-    {
-    direction = 0;
-    clearTimeout(auto_dir);
-    })
-}
-
 //interact with stickers
 addEventListener("mousemove",function()
 {
 mouse_x = event.clientX;
 mouse_y = event.clientY;
-    for(var ii = 0; ii <= imgs_num; ii++)
+    if (can_place == true)
     {
-        if (imgs_clicked[ii] == 1)
+        for(var ii = 0; ii <= imgs_num; ii++)
         {
-        imgs_obj[ii].style.left = mouse_x-100+"px";
-        imgs_obj[ii].style.top = mouse_y-100+"px";
+            if (imgs_clicked[ii] == 1)
+            {
+            imgs_obj[ii].style.left = mouse_x-100+"px";
+            imgs_obj[ii].style.top = mouse_y-20+"px";
+            }
         }
     }
 })
@@ -349,11 +399,15 @@ addEventListener("click",function()
             {
             imgs_obj[ii].style.opacity = 0;
             imgs_clicked[ii] = 0;
-            var random_value = Math.floor(Math.random()*3 | 1);
+            var random_value = irandom_range(1,3);
             var audio = new Audio("sfx/sticker sfx_"+random_value+".mp3");
             audio.pitchShift = false;
             audio.volume = 0.2;
             audio.play();
+
+            var random_angle = irandom_range(30,60)*irandom_return()
+            imgs_angle[ii] = 0;
+            imgs_max_angle[ii] = random_angle;
             setTimeout(sticking_anime_1,300,ii);
             }
             else
@@ -394,10 +448,15 @@ console.log("angle"+direction);
     {
     console.log("clicked remove");
     imgs_obj[ii].remove();
+    imgs_obj[ii] = -4;
     }
     else
     {
     var target_src = imgs_obj[ii].src;
+    
+    var random_angle = irandom_range(30,60)*irandom_return()
+    imgs_max_angle[ii] = random_angle;
+    console.log("imgs_max_angle"+imgs_max_angle);
 
         //check image file name and play sfx
         if (target_src.includes("sakana"))
@@ -419,6 +478,8 @@ console.log("angle"+direction);
 }
 
 
+
+
 document.querySelector(".random_sticker").addEventListener("click",function()
 {
 document.querySelector(".random_sticker").style.color = "black";
@@ -435,10 +496,11 @@ imgs_obj[imgs_num].style.transition = "transform 0.1s";
 imgs_obj[imgs_num].style.zIndex = imgs_num+10;
 imgs_obj[imgs_num].style.left = "-999px";
 imgs_obj[imgs_num].draggable = false;
-setTimeout(get_mouse_dir,100,imgs_num);
+imgs_obj[imgs_num].style.transformOrigin = "top";
 can_place = false;
 setTimeout(placalble_now,100);
 imgs_clicked[imgs_num] = 1;
+sticker_positioning = 1;
 if (random_bg_n == 2 || random_bg_n == 4)
 {
 var random_value = Math.floor(Math.random()*random_sticker_2.length | 0);
