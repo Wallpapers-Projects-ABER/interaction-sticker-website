@@ -13,11 +13,76 @@ font-family: customfont;
 
 .background
 {
-background : linear-gradient(to top,#3f80b6,#2a96f9);
+background : #3f80b6;
 overflow-x: hidden;
 overflow-y: hidden;
 height : var(--page_height);
 z-index : 0;
+}
+
+.air_res
+{
+position : fixed;
+color : black;
+font-weight : bold;
+white-space: nowrap;
+font-size : var(--text_size);
+transition : color 2s;
+top : 95%;
+z-index : 9999;
+padding: 1.5px;
+}
+
+.air_res_bar
+{
+-webkit-appearance : none;
+position : fixed;
+background : white;
+font-weight : bold;
+white-space: nowrap;
+font-size : var(--text_size);
+transition : color 2s;
+top : 97%;
+z-index : 9999;
+padding : 2px;
+height : 3px;
+width : 150px;
+border-radius : 12px;
+}
+
+.air_res_bar:hover 
+{
+opacity: 1;
+}
+
+.air_res_bar::-webkit-slider-thumb 
+{
+-webkit-appearance: none;
+appearance: none;
+width: 12px;
+height: 12px;
+background: #ff5647;
+cursor: pointer;
+border-radius : 12px;
+}
+
+.air_res_bar::-moz-range-thumb 
+{
+width: 12px;
+height: 12px;
+background: #ff5647;
+cursor: pointer;
+border-radius : 12px;
+}
+
+.air_res_bar::-moz-range-thumb
+{
+-webkit-appearance: none;
+appearance: none;
+background : #ff5647;
+width : 12px;
+height : 12px;
+cursor: pointer;
 }
 
 .remover

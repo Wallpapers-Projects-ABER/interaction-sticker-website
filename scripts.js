@@ -28,8 +28,9 @@ var random_value______ = Math.floor(Math.random()*100 | 1);
 //image_values
 var imgs_obj = [], imgs_clicked = [], imgs_angle = [], imgs_max_angle = [], imgs_num = -1, direction = 0, n_dir = 1, t_dir = 0, can_place = false, remover_activated = -1, already_exists_background = false, mouse_x = 0, mouse_y = 0, n_draging_ele = -4;
 var background_img = -4, random_bg_n = -4;
+var air_resistence = 0.67;
 var random_sticker = ["chinanako","sakana","chisato1","chisato2","deto","takina1"];//["ame","aqua","calli","chinanako","sakana","chisato1","chisato2","deto","takina1"];
-var random_sticker_2 = ["elaina1","elaina2","elaina3","elaina4"];
+var random_sticker_2 = ["ame","ina","gura"];
 
 
 //set values for css
@@ -44,6 +45,7 @@ var resizing2 = -210*c_w;
 var resizing3 = -130*c_w;
 document.documentElement.style.setProperty("--file_uploader_pos",resizing2+"px")
 document.documentElement.style.setProperty("--file_uploader_text_pos",resizing3+"px")
+document.documentElement.style.setProperty("--air_res_button_pos",resizing3+air_resistence*150+"px")
 
 //sticker image selector text animation
 document.querySelector(".file_selector").addEventListener("mouseover",function()
@@ -163,7 +165,6 @@ document.querySelector(".random_sticker").style.width = "0px";
 setTimeout(step_event,5);
 function step_event() //10 fps
 {
-var air_resistence = 0.67;
     for(var k = 0; k <= imgs_num; k++)
     {
         if (imgs_obj[k] != -4)
@@ -296,7 +297,6 @@ $("input").change(function(e)
 {
 var input_file = document.getElementById("file_selector").value;
 var input_file_bg = document.getElementById("bg_file_selector").value;
-console.log("input");
     for(var i = 0; i < e.originalEvent.srcElement.files.length; i++) 
     {
     var file = e.originalEvent.srcElement.files[i];
@@ -409,6 +409,7 @@ addEventListener("click",function()
             imgs_angle[ii] = 0;
             imgs_max_angle[ii] = random_angle;
             setTimeout(sticking_anime_1,300,ii);
+            break;
             }
             else
             {
@@ -420,6 +421,17 @@ addEventListener("click",function()
         }
     }
 })
+
+
+
+//air resistence button
+document.querySelector(".air_res_bar").addEventListener("input",function()
+{
+air_resistence = (500-document.getElementById("air_res_bar").value)/500;
+console.log("air_resistence"+air_resistence);
+})
+
+
 
 function sticking_anime_1(ii)
 {
@@ -482,6 +494,7 @@ console.log("angle"+direction);
 
 document.querySelector(".random_sticker").addEventListener("click",function()
 {
+remover_activated == -1;
 document.querySelector(".random_sticker").style.color = "black";
 
 
@@ -501,7 +514,7 @@ can_place = false;
 setTimeout(placalble_now,100);
 imgs_clicked[imgs_num] = 1;
 sticker_positioning = 1;
-if (random_bg_n == 2 || random_bg_n == 4)
+if (random_bg_n != 2)
 {
 var random_value = Math.floor(Math.random()*random_sticker_2.length | 0);
 imgs_obj[imgs_num].src = "imgs/"+random_sticker_2[random_value]+".png";
