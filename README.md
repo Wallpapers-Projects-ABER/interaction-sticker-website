@@ -2,7 +2,7 @@
 
 <img src = "imgs/chinanako.png" width = "196px"> <img src = "imgs/sakana.png" width = "240px"> <img src = "imgs/takina1.png" width = "196px">
 
-<img src = "imgs/elaina1.png" width = "210px"> <img src = "imgs/elaina2.png" width = "227px"> <img src = "imgs/elaina3.png" width = "196px">
+<img src = "imgs/ame.png" width = "210px"> <img src = "imgs/ina.png" width = "227px"> <img src = "imgs/gura.png" width = "196px">
 
 ### 스티커 인터렉션 웹사이트
 
