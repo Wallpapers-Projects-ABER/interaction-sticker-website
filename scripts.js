@@ -30,7 +30,7 @@ var imgs_obj = [], imgs_clicked = [], imgs_angle = [], imgs_max_angle = [], imgs
 var background_img = -4, random_bg_n = -4;
 var air_resistence = 0.67;
 var random_sticker = ["chinanako","sakana","chisato1","chisato2","deto","takina1"];//["ame","aqua","calli","chinanako","sakana","chisato1","chisato2","deto","takina1"];
-var random_sticker_2 = ["ame","ina","gura"];
+var random_sticker_2 = ["ame","ina","gura","cloud_1","cloud_2"];
 
 
 //set values for css
