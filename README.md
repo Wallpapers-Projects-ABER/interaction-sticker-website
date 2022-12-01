@@ -4,7 +4,7 @@
 
 <img src = "imgs/ame.png" width = "210px"> <img src = "imgs/ina.png" width = "227px"> <img src = "imgs/gura.png" width = "196px">
 
-### 스티커 인터렉션 웹사이트
+### 현재 개발중인 프로젝트
 
 -------------
 
