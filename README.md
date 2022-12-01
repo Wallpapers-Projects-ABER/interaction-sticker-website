@@ -42,8 +42,3 @@ https://twitter.com/7naaka/status/1448964364325720070?t=AgLGQ2IVrUxrdts5m8cKug&s
 
 https://www.1999.co.jp/eng/image/10806377/30/1
 
-### ▼ 이스터 에그
-
--------------
-
-몇몇 그림은 클릭시 효과음이 나옴
