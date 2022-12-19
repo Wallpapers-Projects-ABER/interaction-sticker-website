@@ -18,14 +18,3 @@ https://aber1047.github.io/bocchi/
 
 #
 
-
-### ▼ 일러스트
-
--------------
-
-https://twitter.com/blue00f4/status/1551887529615687680
-
-https://twitter.com/7naaka/status/1448964364325720070?t=AgLGQ2IVrUxrdts5m8cKug&s=19
-
-https://www.1999.co.jp/eng/image/10806377/30/1
-
