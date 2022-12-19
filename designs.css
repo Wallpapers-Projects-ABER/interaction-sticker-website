@@ -84,7 +84,7 @@ width : 12px;
 height : 12px;
 cursor: pointer;
 }
-/* 
+
 .remover
 {
 position : fixed;
@@ -137,9 +137,9 @@ left : -32px;
 z-index : 9999;
 padding: 1.5px;
 width : 0px;
-} */
+}
 
-/* .selector_text
+.selector_text
 {
 position : fixed;
 cursor : pointer;
@@ -155,9 +155,9 @@ left : -15px;
 z-index : 9999;
 padding: 1.5px;
 width : 0px;
-} */
+}
 
-/* .bg_selector_text
+.bg_selector_text
 {
 position : fixed;
 cursor : pointer;
@@ -173,9 +173,9 @@ left : -20px;
 z-index : 9999;
 padding: 1.5px;
 width : 0px;
-} */
+}
 
-/* .file_selector
+.file_selector
 {
 cursor : pointer;
 position : fixed;
@@ -203,5 +203,5 @@ background : #ff5647;
 opacity : 0;
 display : block;
 z-index : 10000;
-} */
+}
 
